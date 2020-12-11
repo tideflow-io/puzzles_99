@@ -203,7 +203,9 @@ const analyze = (flow, stepsResults) => {
   result.isErrored = !!Object.values(result.errors).find(e => !!e)
 
   if (result.isErrored) {
-    return result
+    return Object.assign(result, {
+      completed: false
+    })
   }
   result.stepsExecuted = (stepsResults||[]).map(s => s.stepIndex)
 

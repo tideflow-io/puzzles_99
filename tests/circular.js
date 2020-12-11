@@ -19,7 +19,8 @@ module.exports.cases = [
       { stepIndex: 2, pass: true }
     ],
     result: {
-      errors: { isCircular: true }
+      errors: { isCircular: true },
+      completed: false
     }
   },
 
@@ -28,7 +29,8 @@ module.exports.cases = [
       { stepIndex: 2, pass: false }
     ],
     result: {
-      errors: { isCircular: true }
+      errors: { isCircular: true },
+      completed: false
     }
   },
 
@@ -36,7 +38,47 @@ module.exports.cases = [
     executedSteps: [
     ],
     result: {
-      errors: { isCircular: true }
+      errors: { isCircular: true },
+      completed: false
+    }
+  },
+
+  {
+    executedSteps: [
+      { stepIndex: 0 },
+      { stepIndex: 1 },
+      { stepIndex: 2 },
+      { stepIndex: 3 }
+    ],
+    result: {
+      errors: { isCircular: true },
+      completed: false
+    }
+  },
+
+  {
+    executedSteps: [
+      { stepIndex: 0 },
+      { stepIndex: 1 },
+      { stepIndex: 2, pass: true },
+      { stepIndex: 3 }
+    ],
+    result: {
+      errors: { isCircular: true },
+      completed: false
+    }
+  },
+
+  {
+    executedSteps: [
+      { stepIndex: 0 },
+      { stepIndex: 1 },
+      { stepIndex: 2, pass: false },
+      { stepIndex: 3 }
+    ],
+    result: {
+      errors: { isCircular: true },
+      completed: false
     }
   },
 ]

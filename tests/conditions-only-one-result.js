@@ -61,6 +61,46 @@ module.exports.cases = [
 
   {
     executedSteps: [
+      { stepIndex: 0 },
+      { stepIndex: 1 },
+      { stepIndex: 2, pass: true },
+      { stepIndex: 3 },
+      { stepIndex: 'trigger' }
+    ],
+    result: {
+      stepsToExecute: [
+        0, 1, 2, 3, 'trigger'
+      ],
+      errors: {
+        hasEmptyConditions: false,
+        isCircular: false
+      },
+      completed: true
+    }
+  },
+
+  {
+    executedSteps: [
+      { stepIndex: 0 },
+      { stepIndex: 0 },
+      { stepIndex: 2, pass: true },
+      { stepIndex: 3 },
+      { stepIndex: 'trigger' }
+    ],
+    result: {
+      stepsToExecute: [
+        0, 1, 2, 3, 'trigger'
+      ],
+      errors: {
+        hasEmptyConditions: false,
+        isCircular: false
+      },
+      completed: false
+    }
+  },
+
+  {
+    executedSteps: [
       { stepIndex: 2, pass: true },
       { stepIndex: 2, pass: true },
       { stepIndex: 2, pass: true },

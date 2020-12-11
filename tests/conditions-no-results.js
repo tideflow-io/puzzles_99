@@ -18,7 +18,7 @@ module.exports.cases = [
         hasEmptyConditions: true,
         isCircular: false
       },
-      completed: undefined,
+      completed: false,
       isErrored: true
     }
   }
