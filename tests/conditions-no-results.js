@@ -13,14 +13,13 @@ module.exports.cases = [
   {
     executedSteps: [],
     result: {
-      stepsToExecute: [
-        0,1,2,'trigger'
-      ],
+      stepsToExecute: undefined,
       errors: {
         hasEmptyConditions: true,
         isCircular: false
       },
-      completed: false
+      completed: undefined,
+      isErrored: true
     }
   }
 ]

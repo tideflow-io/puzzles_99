@@ -124,7 +124,7 @@ const isCircular = flow => {
     return next.map(n => path(list.concat(n), thisCallsto[n]))
   }
 
-  path(['tigger'], thisCallsto.trigger || [])
+  path(['trigger'], thisCallsto.trigger || [])
   guessStepsWithoutPreceding(flow).map(np => {
     path([np], thisCallsto[np])
   })
@@ -158,8 +158,6 @@ const stepsToExecute = (flow, results) => {
       return o.reason === (pass ? 'condition-true' : 'condition-false')
     })
 
-    console.log({outputs, pass, outputs: condition.outputs})
-
     return outputs.map(o => o.stepIndex)
   }
 
@@ -177,7 +175,7 @@ const stepsToExecute = (flow, results) => {
     })
   }
 
-  path(['tigger'], thisCallsto.trigger || [])
+  path(['trigger'], thisCallsto.trigger || [])
   guessStepsWithoutPreceding(flow).map(np => {
     path([np], thisCallsto[np])
   })
@@ -207,17 +205,18 @@ const analyze = (flow, stepsResults) => {
   if (result.isErrored) {
     return result
   }
+  result.stepsExecuted = (stepsResults||[]).map(s => s.stepIndex)
 
   try {
-    result.stepsToExecute = stepsToExecute(flow, stepsResults || [])
-    result.completed = result.stepsExecuted.length === result.stepsToExecute.length
+    result.stepsToExecute = stepsToExecute(flow, stepsResults || []).sort()
+    result.completed = (
+      JSON.stringify(result.stepsToExecute) === JSON.stringify(result.stepsExecuted.sort())
+    )
   } catch (ex) {
+    console.log({ex})
     result.stepsToExecute = 'unknown'
     result.completed = false
   }
-
-  result.stepsToExecute = stepsToExecute(flow, stepsResults || []).sort()
-  result.stepsExecuted = stepsResults||[]
 
   return result
 }
@@ -227,32 +226,22 @@ const analyze = (flow, stepsResults) => {
 // =============================================================================
 
 let tests = require('./tests')
-tests = {
-  circular: require('./tests/circular')
-}
 
-function objectIntersects(a,b){
-  var newObj = {}; 
-  for (var key in a){
-    if (typeof a[key] === 'object'){
-      var obj = objectIntersects(a[key], b[key]);
-      newObj[key] = obj;
-    }else if (a[key] == b[key]){
-      newObj[key] = a[key];
-    }
-  }
-  return newObj;
-}
 
 Object.keys(tests).map(test => {
   const { flow, cases } = tests[test]
   
-  cases.map(testCase => {
-    const { exectedSteps, result } = testCase
-    let analysis = analyze(flow, exectedSteps)
-    let intersection = objectIntersects(result, analysis)
-    console.log({
-      result, analysis, intersection
+  cases.map((testCase, testCaseIndex) => {
+    const { executedSteps, result } = testCase
+    let analysis = analyze(flow, executedSteps)
+    Object.keys(result).map(k => {
+      if (k === 'errors') return;
+      if (JSON.stringify(result[k]) !== JSON.stringify(analysis[k])) {
+        console.log(`${test} => ${testCaseIndex} => ${k}`)
+        console.log(`  expected ${JSON.stringify(result[k])}`)
+        console.log(`       got ${JSON.stringify(analysis[k])}`)
+        console.log(`${JSON.stringify(analysis)}\n\n`)
+      }
     })
   })
 })

@@ -104,5 +104,22 @@ module.exports.cases = [
       errors: { isCircular: false },
       completed: false
     }
+  },
+
+  {
+    executedSteps: [
+      {stepIndex: 0},
+      {stepIndex: 1}, // 1 removed on purpose
+      {stepIndex: 2, pass: false},
+      {stepIndex: 3},
+      {stepIndex: 'trigger'}
+    ],
+    result: {
+      stepsToExecute: [
+        0,1,2,3,'trigger'
+      ],
+      errors: { isCircular: false },
+      completed: true
+    }
   }
 ]

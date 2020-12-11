@@ -25,7 +25,7 @@ const flow = {
 
 module.exports.flow = flow
 
-module.exports.cases = [
+const cases = [
   {
     executedSteps: [
     ],
@@ -59,7 +59,7 @@ module.exports.cases = [
     ],
     result: {
       errors: { isCircular: false },
-      executedSteps: [ 0, 1, 2, 4, 5, 6, 8, 9, 'trigger' ],
+      stepsToExecute: [ 0, 1, 2, 4, 5, 6, 8, 9, 'trigger' ],
       completed: true
     }
   },
@@ -79,8 +79,10 @@ module.exports.cases = [
     ],
     result: {
       errors: { isCircular: false },
-      executedSteps: [ 0, 1, 2, 4, 5, 6, 8, 9, 'trigger' ],
+      stepsToExecute: [ 0, 1, 2, 4, 5, 6, 8, 9, 'trigger' ],
       completed: false
     }
   }
 ]
+
+module.exports.cases = cases
