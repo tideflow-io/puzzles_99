@@ -16,7 +16,7 @@ module.exports.flow = flow
 module.exports.cases = [
   {
     executedSteps: [
-      { stepIndex: 2, pass: true }
+      { stepIndex: 2, result: { pass: true } }
     ],
     result: {
       errors: { isCircular: true },
@@ -26,7 +26,7 @@ module.exports.cases = [
 
   {
     executedSteps: [
-      { stepIndex: 2, pass: false }
+      { stepIndex: 2, result: { pass: false } }
     ],
     result: {
       errors: { isCircular: true },
@@ -60,7 +60,7 @@ module.exports.cases = [
     executedSteps: [
       { stepIndex: 0 },
       { stepIndex: 1 },
-      { stepIndex: 2, pass: true },
+      { stepIndex: 2, result: { pass: true } },
       { stepIndex: 3 }
     ],
     result: {
@@ -73,7 +73,7 @@ module.exports.cases = [
     executedSteps: [
       { stepIndex: 0 },
       { stepIndex: 1 },
-      { stepIndex: 2, pass: false },
+      { stepIndex: 2, result: { pass: false } },
       { stepIndex: 3 }
     ],
     result: {

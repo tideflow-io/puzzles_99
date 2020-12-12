@@ -10,7 +10,7 @@ const flow = {
       { reason: 'condition-false', stepIndex: 3 },
       { reason: 'condition-true', stepIndex: 4 } 
     ] },
-    { type: 'abc', outputs: [] },                                        /* 3 */
+    { type: 'abc', outputs: [ { reason: 'step', stepIndex: 9 } ] },      /* 3 */
     { type: 'abc', outputs: [ { reason: 'step', stepIndex: 9 } ] },      /* 4 */
     { type: 'abc', outputs: [ { reason: 'step', stepIndex: 9 } ] },      /* 5 */
     { type: 'abc', outputs: [ { reason: 'step', stepIndex: 9 } ] },      /* 6 */
@@ -27,62 +27,85 @@ module.exports.flow = flow
 
 const cases = [
   {
-    executedSteps: [
-    ],
+    executedSteps: [],
+    result: {
+      errors: {
+        isCircular: false
+      },
+      isErrored: true,
+      completed: false
+    }
+  },
+
+  {
+    executedSteps: [{}],
     result: {
       errors: { isCircular: false },
+      isErrored: true,
+      completed: false
+    }
+  },
+
+  {
+    executedSteps: [{},{}],
+    result: {
+      errors: { isCircular: false },
+      isErrored: true,
+      completed: false
+    }
+  },
+  
+  {
+    executedSteps: [
+      { stepIndex: 2, result: { pass: true } },
+      { stepIndex: 9, result: { pass: true } }
+    ],
+    result: {
+      errors: {
+        isCircular: false,
+        conditionsNotMet: true
+      },
+      isErrored: true,
+      completed: false
+    }
+  },
+  
+  {
+    executedSteps: [
+      { stepIndex: 2, result: { pass: true } }
+    ],
+    result: {
+      errors: {
+        isCircular: false
+      },
+      isErrored: true,
       completed: false
     }
   },
 
   {
     executedSteps: [
-      { stepIndex: 2, result: { pass: false } }
+      { stepIndex: 2, result: { pass: true } },
+      { stepIndex: 9, result: { pass: true } }
     ],
     result: {
       errors: { isCircular: false },
+      isErrored: true,
       completed: false
     }
   },
 
   {
     executedSteps: [
-      { stepIndex: 'trigger' },
-      { stepIndex: 0 },
-      { stepIndex: 1 },
-      { stepIndex: 2, result: { pass: true } },
-      { stepIndex: 4 },
-      { stepIndex: 5 },
-      { stepIndex: 6 },
-      { stepIndex: 8 },
-      { stepIndex: 9, result: { pass: true } }
+      { stepIndex: 2, result: { pass: false } },
+      { stepIndex: 9, result: { pass: false } }
     ],
     result: {
       errors: { isCircular: false },
-      stepsToExecute: [ 0, 1, 2, 4, 5, 6, 8, 9, 'trigger' ],
-      completed: true
-    }
-  },
-
-  {
-    executedSteps: [
-      { stepIndex: 'trigger' },
-      { stepIndex: 0 },
-      { stepIndex: 1 },
-      { stepIndex: 2, result: { pass: true } },
-      { stepIndex: 4 },
-      { stepIndex: 5 },
-      { stepIndex: 8 }, // removed step 6 on purpose so steps to be executed
-                        // does not matches
-      { stepIndex: 8 },
-      { stepIndex: 9, result: { pass: true } }
-    ],
-    result: {
-      errors: { isCircular: false },
-      stepsToExecute: [ 0, 1, 2, 4, 5, 6, 8, 9, 'trigger' ],
+      isErrored: true,
       completed: false
     }
   }
 ]
 
-module.exports.cases = cases
+module.exports.cases = [cases[3]]

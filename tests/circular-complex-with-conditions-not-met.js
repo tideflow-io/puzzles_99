@@ -57,7 +57,7 @@ module.exports.cases = [
   
   {
     executedSteps: [
-      { stepIndex: 2, pass: true }
+      { stepIndex: 2, result: { pass: true } }
     ],
     result: {
       errors: { isCircular: true },
@@ -68,8 +68,8 @@ module.exports.cases = [
 
   {
     executedSteps: [
-      { stepIndex: 2, pass: true },
-      { stepIndex: 9, pass: true }
+      { stepIndex: 2, result: { pass: true } },
+      { stepIndex: 9, result: { pass: true } }
     ],
     result: {
       errors: { isCircular: true },
@@ -80,8 +80,8 @@ module.exports.cases = [
 
   {
     executedSteps: [
-      { stepIndex: 2, pass: false },
-      { stepIndex: 9, pass: false }
+      { stepIndex: 2, result: { pass: false } },
+      { stepIndex: 9, result: { pass: false } }
     ],
     result: {
       errors: { isCircular: true },

@@ -29,7 +29,7 @@ module.exports.cases = [
 
   {
     executedSteps: [
-      { stepIndex: 2, pass: false }
+      { stepIndex: 2, result: { pass: false } }
     ],
     result: {
       stepsToExecute: [
@@ -45,7 +45,7 @@ module.exports.cases = [
 
   {
     executedSteps: [
-      { stepIndex: 2, pass: true }
+      { stepIndex: 2, result: { pass: true } }
     ],
     result: {
       stepsToExecute: [
@@ -63,7 +63,7 @@ module.exports.cases = [
     executedSteps: [
       { stepIndex: 0 },
       { stepIndex: 1 },
-      { stepIndex: 2, pass: true },
+      { stepIndex: 2, result: { pass: true } },
       { stepIndex: 3 },
       { stepIndex: 'trigger' }
     ],
@@ -83,7 +83,7 @@ module.exports.cases = [
     executedSteps: [
       { stepIndex: 0 },
       { stepIndex: 0 },
-      { stepIndex: 2, pass: true },
+      { stepIndex: 2, result: { pass: true } },
       { stepIndex: 3 },
       { stepIndex: 'trigger' }
     ],
@@ -101,12 +101,12 @@ module.exports.cases = [
 
   {
     executedSteps: [
-      { stepIndex: 2, pass: true },
-      { stepIndex: 2, pass: true },
-      { stepIndex: 2, pass: true },
-      { stepIndex: 2, pass: true },
-      { stepIndex: 2, pass: true },
-      { stepIndex: 2, pass: true }
+      { stepIndex: 2, result: { pass: true } },
+      { stepIndex: 2, result: { pass: true } },
+      { stepIndex: 2, result: { pass: true } },
+      { stepIndex: 2, result: { pass: true } },
+      { stepIndex: 2, result: { pass: true } },
+      { stepIndex: 2, result: { pass: true } }
     ],
     result: {
       stepsToExecute: [
